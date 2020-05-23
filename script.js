@@ -50,7 +50,27 @@ $(document).ready(function(e) {
     ["/clear", "Clear the console"],
     ["/stats", "Display system statistics"],
     ["/skills", "Display integrated AI skillset"],
-  ]
+    ["/loadout", "Display current loadout"],
+    ["/mods", "Display installed components"],
+
+  ];
+
+  const stats = [
+    ["BODY", "7"],
+    ["MIND", "5"],
+    ["SOCI", "6"],
+    ["RESI", "0"]
+  ];
+
+  const skills = [
+    ["PERS", "1"],
+    ["PERF", "4"],
+
+  ];
+
+  const loadout = [
+    ["Gungnir", "Highly modified "]
+  ];
 
   let previouscommands = [];
   let currentcommand = 0;
@@ -130,20 +150,33 @@ $(document).ready(function(e) {
         log("Core", "Retrieving system statistics...");
         log("Client", "");
         log("Client", "DRIVER: Remote AI");
-        log("Client", "VERSION: Lv15.Xp350");
+        log("Client", "VERSION: 15.350");
         log("Client", "");
         log("Client", "System Statistics:");
-        log("Client", "E!BODY: |||||||");
-        log("Client", "E!MIND: |||||");
-        log("Client", "E!SOCI: ||||||");
-        log("Client", "E!RESI:");
+        for(let i = 0; i < stats.length; i++) {
+          output = "E!" + stats[i][0] + ": " + "|".repeat(stats[i][1]); 
+          log("Client", output);
+        }
         log("Client", "");
         break;
       case "/skills":
         log("Core", "Retrieving integrated AI skillset...");
         log("Client", "");
-        log("Client", "E!PERF: |||||");
+        for(let i = 0; i < skills.length; i++) {
+          output = "E!" + skills[i][0] + ": " + "|".repeat(skills[i][1]); 
+          log("Client", output);
+        }
         log("Client", "");
+        break;
+      case "/loadout":
+        log("Core", "Retrieving loadout information...");
+        log("Client", "");
+        for(let i = 0; i < loadout.length; i++) {
+          output = "E!" + loadout[i][0] + ": " + louadout[i][1];
+          log("Client", output);
+        }
+        log("Client", "");
+        break;
     }
   }
 
