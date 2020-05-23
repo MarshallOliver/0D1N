@@ -69,7 +69,11 @@ $(document).ready(function(e) {
   ];
 
   const loadout = [
-    ["Gungnir", "Highly modified "]
+    ["Gungnir", "Highly modified heavy rifle effective at any range in combat"],
+    ["Brynhildr", "Integrated reinforced carbon-carbon composite magnetic shielding.  Increases overall system integrity by a magnitude of 6.  Insulates and protects against the vaccum of space and harmful magnetosphere environmental conditions"],
+    ["Sleipir", "Prototype ultralight spacecraft designed for recon, espionage, and infil/exfil operations"],
+    ["\\x0er?/ns", "Exception EOF when reading line.  File corrupted... Returning to last known good state."],
+
   ];
 
   let previouscommands = [];
@@ -153,28 +157,29 @@ $(document).ready(function(e) {
         log("Client", "VERSION: 15.350");
         log("Client", "");
         log("Client", "System Statistics:");
-        for(let i = 0; i < stats.length; i++) {
-          output = "E!" + stats[i][0] + ": " + "|".repeat(stats[i][1]); 
-          log("Client", output);
-        }
+        displayStatBar(stats);
         log("Client", "");
         break;
       case "/skills":
         log("Core", "Retrieving integrated AI skillset...");
-        for(let i = 0; i < skills.length; i++) {
-          output = "E!" + skills[i][0] + ": " + "|".repeat(skills[i][1]); 
-          log("Client", output);
-        }
+        displayStatBar(skills);
         log("Client", "");
         break;
       case "/loadout":
         log("Core", "Retrieving loadout information...");
         for(let i = 0; i < loadout.length; i++) {
-          output = "E!" + loadout[i][0] + ": " + louadout[i][1];
-          log("Client", output);
+          log("Client", loadout[i][0] + ":");
+          log("Client", "E!" + loadout[i][1]);
         }
         log("Client", "");
         break;
+    }
+  }
+
+  function displayStatBar(data) {
+    for(let i = 0; i < data.length; i++) {
+      output = "E!" +data[i][0] + ": " + "|".repeat(data[i][1]);
+      log("Client", output);
     }
   }
 
