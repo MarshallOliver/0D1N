@@ -42,7 +42,7 @@ $(document).ready(function(e) {
     log("Core", "E!External Components... Online!");
     log("Core", "");
     log("Client", "For help say '/help'");
-    window.location.hash="#editable";
+    window.location.hash="#prompt";
   }
 
   const commandlist = [
