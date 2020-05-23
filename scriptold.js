@@ -1,3 +1,4 @@
+
       var faviconnumber = 1;
   function favicon() {
     favicon = favicon == 1 ? 2 : 1;
