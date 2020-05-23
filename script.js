@@ -60,7 +60,7 @@ $(document).ready(function(e) {
     ["MIND", "5"],
     ["SOCI", "6"],
     ["RESI", "0"],
-    
+
   ];
 
   const skills = [
@@ -212,7 +212,7 @@ $(document).ready(function(e) {
 
   $(function(){
 
-    $("#editable")
+    $("#prompt")
 
     // use br instead of div div
     .on("keypress", null, function(e){
