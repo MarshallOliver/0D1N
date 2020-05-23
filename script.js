@@ -161,7 +161,6 @@ $(document).ready(function(e) {
         break;
       case "/skills":
         log("Core", "Retrieving integrated AI skillset...");
-        log("Client", "");
         for(let i = 0; i < skills.length; i++) {
           output = "E!" + skills[i][0] + ": " + "|".repeat(skills[i][1]); 
           log("Client", output);
@@ -170,7 +169,6 @@ $(document).ready(function(e) {
         break;
       case "/loadout":
         log("Core", "Retrieving loadout information...");
-        log("Client", "");
         for(let i = 0; i < loadout.length; i++) {
           output = "E!" + loadout[i][0] + ": " + louadout[i][1];
           log("Client", output);
