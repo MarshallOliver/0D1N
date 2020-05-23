@@ -77,6 +77,16 @@ $(document).ready(function(e) {
 
   ];
 
+  const mods = [
+    ["Full Combat Overhaul", "Titanium metal alloy skeletal upgrades and kevlar lattice integrated muscular systems beneath a customized Brynhildr shielding system"],
+    ["Amplified Voice", "Voice amplification system for increased command in diplomatic and social encounters"],
+    ["Hidden Compartment", "Lower abdominal compartment primarily used to store Remote AI core"],
+    ["Wireless Action", "Upgraded wireless receptors bypass traditional 'Nervous Systems' to allow for lossless instantaneous relaying between receptors and core"],
+    ["Targetting Processor", "Dedicated processing unit for plotting trajectories.  Enables inexperienced Remote AI to handle Gungnir with deadly accuracy"],
+    ["Bubba's Quick-R@7c4ing $m@c4d0wn Di$%^\\ytj/>.df", "Exception: EOF when reading line.  File corrupted... Returning to last known good state."],
+
+  ];
+
   let previouscommands = [];
   let currentcommand = 0;
 
@@ -168,12 +178,12 @@ $(document).ready(function(e) {
         break;
       case "/loadout":
         log("Core", "Retrieving loadout information...");
-        for(let i = 0; i < loadout.length; i++) {
-          log("Client", loadout[i][0] + ":");
-          log("Client", "E!" + loadout[i][1]);
-        }
+        displayDefinitions(loadout);
         log("Client", "");
         break;
+      case "/mods":
+        log("Core", "Retrieving modifications list...");
+        displayDefinitions(mods);
     }
   }
 
@@ -181,6 +191,13 @@ $(document).ready(function(e) {
     for(let i = 0; i < data.length; i++) {
       output = "E!" +data[i][0] + ": " + "|".repeat(data[i][1]);
       log("Client", output);
+    }
+  }
+
+  function displayDefinitions(data) {
+    for(let i = 0; i < data.length; i++) {
+      log("Client", data[i][0] + ":");
+      log("Client", "E!" + data[i][1]);
     }
   }
 
