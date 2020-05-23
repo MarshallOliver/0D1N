@@ -59,7 +59,8 @@ $(document).ready(function(e) {
     ["BODY", "7"],
     ["MIND", "5"],
     ["SOCI", "6"],
-    ["RESI", "0"]
+    ["RESI", "0"],
+    
   ];
 
   const skills = [
@@ -71,8 +72,8 @@ $(document).ready(function(e) {
   const loadout = [
     ["Gungnir", "Highly modified heavy rifle effective at any range in combat"],
     ["Brynhildr", "Integrated reinforced carbon-carbon composite magnetic shielding.  Increases overall system integrity by a magnitude of 6.  Insulates and protects against the vaccum of space and harmful magnetosphere environmental conditions"],
-    ["Sleipir", "Prototype ultralight spacecraft designed for recon, espionage, and infil/exfil operations"],
-    ["\\x0er?/ns", "Exception EOF when reading line.  File corrupted... Returning to last known good state."],
+    ["Sleipnir", "Prototype ultralight spacecraft designed for recon, espionage, and infil/exfil operations"],
+    ["\\x0er?/ns", "Exception: EOF when reading line.  File corrupted... Returning to last known good state."],
 
   ];
 
@@ -128,7 +129,7 @@ $(document).ready(function(e) {
       information = information.replace(/ /g, '\u00A0');
     }
     if(information[0] == "E" && information[1] == "!") {
-      information = information.substr(2);
+      information = "> " + information.substr(2);
       postcolor = "important";
     }
 
