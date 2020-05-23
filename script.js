@@ -2,6 +2,7 @@
 $(document).ready(function(e) {
   /* Todo:
       * Create typing effect with timed boot sequence...
+      * Figure out why there's an odd error every time a key is pressed after the first command is entered.  Does not seem to cause functional issues.
   */
    console.clear();
 
@@ -28,7 +29,7 @@ $(document).ready(function(e) {
     log("Core", "A! \\_____  /_______  /         |___\\____|__  /");
     log("Core", "A!       \\/        \\/                      \\/ ");
     log("Core", "");
-    log("Core", "Intializing boot sequence... Initialized!");
+    log("Core", "Core Components boot sequence initializing... Initialized!");
     log("Core", "E!Booting Information Databases... Complete!");
     log("Core", "E!Booting Semantic Memory Buffer... Complete!");
     log("Core", "E!Booting Language Processing Unit... Complete!");
@@ -41,16 +42,50 @@ $(document).ready(function(e) {
     log("Core", "E!External Components... Online!");
     log("Core", "");
     log("Client", "For help say '/help'");
+    window.location.hash="#editable";
   }
 
+  const commandlist = [
+    ["/help", "Show commands"],
+    ["/clear", "Clear the console"],
+    ["/stats", "Display system statistics"],
+    ["/skills", "Display integrated AI skillset"],
+  ]
+
+  let previouscommands = [];
+  let currentcommand = 0;
+
+  $(".editline .edit").keydown(function(e) {
+    let text = $(".editline .edit").text();
+    let keypress = e.which;
+    console.log(keypress);
+    if(e.which == 13 && text !== "") {
+      let commands = text.split(' ');
+      let output = "";
+      if (commands[0] == "help") {
+        text = "/" + text;
+      }
+
+      $(".editline .edit").text("");
+      log("User", text);
+
+      previouscommands[currentcommand] = text;
+      currentcommand = previouscommands.length;
+
+      $(".editline .edit").keydown(35);
+      cmd(commands[0], text, commands);
+
+    }
+  });
+
   function log(name, information) {
-    var d = new Date();
-    var hours = ((d.getHours() < 10) ? "0" : "") + d.getHours();
-    var minutes = ((d.getMinutes() < 10) ? "0" : "") + d.getMinutes();
-    var seconds = ((d.getSeconds() < 10) ? "0" : "") + d.getSeconds();
-    var color = "whitet";
-    var textcolor = "";
-    var postcolor = "";
+    let d = new Date();
+    let hours = ((d.getHours() < 10) ? "0" : "") + d.getHours();
+    let minutes = ((d.getMinutes() < 10) ? "0" : "") + d.getMinutes();
+    let seconds = ((d.getSeconds() < 10) ? "0" : "") + d.getSeconds();
+    let color = "whitet";
+    let textcolor = "";
+    let postcolor = "";
 
     switch (name) {
       case "Core":
@@ -58,6 +93,9 @@ $(document).ready(function(e) {
         break;
       case "Client":
         color = "bluet";
+        break;
+      case "User":
+        color = "greent";
         break;
     }
 
@@ -77,14 +115,46 @@ $(document).ready(function(e) {
         '</div');
   }
 
+  function cmd(command, words, word) {
+    switch (word[0]) {
+      case "/help":
+        for(let i = 0; i < commandlist.length; i++) {
+          output = commandlist[i][0] + " : " + commandlist[i][1];
+          log("Client", output);
+        }
+        break;
+      case "/clear":
+        $(".stream").text("");
+        break;
+      case "/stats":
+        log("Core", "Retrieving system statistics...");
+        log("Client", "");
+        log("Client", "DRIVER: Remote AI");
+        log("Client", "VERSION: Lv15.Xp350");
+        log("Client", "");
+        log("Client", "System Statistics:");
+        log("Client", "E!BODY: |||||||");
+        log("Client", "E!MIND: |||||");
+        log("Client", "E!SOCI: ||||||");
+        log("Client", "E!RESI:");
+        log("Client", "");
+        break;
+      case "/skills":
+        log("Core", "Retrieving integrated AI skillset...");
+        log("Client", "");
+        log("Client", "E!PERF: |||||");
+        log("Client", "");
+    }
+  }
+
   function time() {
 
-    var timestring = "";
+    let timestring = "";
     
-    var d = new Date();
-    var hours = d.getHours();
-    var minutes = d.getMinutes();
-    var seconds = d.getSeconds();
+    let d = new Date();
+    let hours = d.getHours();
+    let minutes = d.getMinutes();
+    let seconds = d.getSeconds();
     if (hours < 10) {
       hours = "0" + hours;
     }
@@ -94,12 +164,38 @@ $(document).ready(function(e) {
     if (seconds < 10) {
       seconds = "0" + seconds;
     }
-    var temptimestring = "[" + hours + ":" + minutes + ":" + seconds + "]";
+    let temptimestring = "[" + hours + ":" + minutes + ":" + seconds + "]";
     if (temptimestring != timestring) {
       timestring = temptimestring;
       $(".editline .time").text(timestring);
     }
   }
+
+  // This fixes an annoying bug with contenteditable.
+
+  $(function(){
+
+    $("#editable")
+
+    // use br instead of div div
+    .on("keypress", null, function(e){
+      if (e.which == 13) {
+        if (window.getSelection) {
+          var selection = window.getSelection(),
+            range = selection.getRangeAt(0),
+            br = document.createElement("br");
+          range.deleteContents();
+          range.insertNode(br);
+          range.setStartAfter(br);
+          range.setEndAfter(br);
+          range.collapse(false);
+          selection.removeAllRanges();
+          selection.addRange(range);
+          return false;
+        }
+      }
+    });
+  });
 
   init();
 
