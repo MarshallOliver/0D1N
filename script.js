@@ -109,7 +109,7 @@ $(document).ready(function(e) {
 
       $(".editline .edit").keydown(35);
       cmd(commands[0], text, commands);
-
+      window.location.hash="#prompt";
     }
   });
 
